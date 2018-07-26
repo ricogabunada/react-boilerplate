@@ -73,7 +73,7 @@ class DefaultLayout extends React.Component {
 				  <Menu theme="dark" mode="inline"
 					style={menuStyles}
 					onClick={this.handleClick}
-					defaultSelectedKeys={['4']}>
+					defaultSelectedKeys={['1']}>
 					<Menu.Item key="1">
 					  <Icon type="user" />
 					  <span className="nav-text">nav 1</span>
