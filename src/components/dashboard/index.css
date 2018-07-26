@@ -1,0 +1,45 @@
+.container-dashboard h1 {
+  margin-top: 20px;
+}
+
+.card-btn-container {
+  display: block;
+  margin: auto;
+}
+
+.card-btn-container .ant-col-24 {
+  padding: 10px 0;
+  text-align: center;
+}
+
+.card-btn-container .ant-btn {
+  width: 150px;
+}
+
+.container-reservations .ant-tag .anticon.anticon-cross {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+/* .reservation-tag {
+  position: relative;
+  height: 85px;
+  white-space: pre;
+  width: 200px;
+} */
+
+.reservation-tag {
+  position: relative;
+  height: 52px;
+  white-space: pre;
+  width: 170px;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.add-multiple-btn{ margin-left: 10px;}
+
+.csv-link{
+  float: right;
+}
