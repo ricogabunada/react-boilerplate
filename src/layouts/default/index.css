@@ -1,0 +1,22 @@
+.sidebar-bg-color {
+	background-color: #1071b8!important;
+}
+
+/**
+ * Override antd css for toggle sidebar responsive
+ *
+ */
+
+.ant-layout-sider-zero-width-trigger,
+.ant-layout-sider-zero-width-trigger:hover
+{
+	background: #188fff;
+}
+
+.ant-layout-sider-zero-width-trigger {
+	z-index: 1;
+}
+
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+	background: #1070b8;
+}

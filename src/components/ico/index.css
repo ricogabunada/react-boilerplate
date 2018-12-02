@@ -1,0 +1,13 @@
+.coin-name,
+.transaction-setting {
+    margin: 0 0 5px 0 !important;
+}
+
+.coin-name > span:nth-child(1),
+.transaction-setting > span:nth-child(1) {
+    display: none !important;
+}
+
+.coin-name:nth-child(1) {
+    margin-top: 8px !important;
+}

@@ -1,21 +1,26 @@
 import React from 'react';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
-
-import {authenticate} from '../../reducers/login/resources';
-import session from '../../utils/session';
-
+import {
+	Alert,
+	Form,
+	Icon,
+	Input,
+	Button,
+	Checkbox,
+} from 'antd';
+import {sendEmail} from '../../reducers/login/resources';
 import './index.css';
 
 const FormItem = Form.Item;
 
-class Login extends React.Component {
+class ForgotPassword extends React.Component {
 	componentWillMount() {
 		this.setState({
 			email: '',
 			password: '',
-			error: '',
+			success: false,
+			error: false,
 		});
 	}
 
@@ -24,24 +29,57 @@ class Login extends React.Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				const {remember, ...data} = values;
-				return console.log(data);
-
-				authenticate(data)
+				sendEmail(values)
 					.then(res => {
-						console.log('Received values of form: ', res);
-						session.set('userData', res)
-						session.set('token', res.remember_token);
-						this.props.history.replace({ pathname: '/dashboard' });
+						if(res.success) {
+							return this.setState({
+								success: true,
+								error: false,
+							});
+						}
+						this.setState({
+							success: false,
+							error: true,
+						});
+					})
+					.catch(err => {
+						console.log('err: ', err);
 					});
 			}
 		});
 	}
+
+	handleClose = key => {
+		return () => {
+			let state = this.state;
+
+			state[key] = false;
+
+			this.setState(state);
+		}
+	}
+
 	render() {
 		const { getFieldDecorator } = this.props.form;
 
 		return (
 			<div className="login-form-wrapper">
+				{ this.state.success ?
+					<Alert
+						closable
+						message="Email has been sent."
+						type="success"
+						showIcon
+						afterClose={this.handleClose('success')}/> : null }
+
+				{ this.state.error ?
+					<Alert
+						closable
+						message="Oops! Please try again."
+						type="error"
+						showIcon
+						afterClose={this.handleClose('error')}/> : null }
+
 				<Form onSubmit={this.handleSubmit} className="login-form">
 					<FormItem>
 						{getFieldDecorator('email', {
@@ -74,6 +112,6 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const LoginForm = Form.create()(Login);
+const ForgotPasswordForm = Form.create()(ForgotPassword);
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordForm);

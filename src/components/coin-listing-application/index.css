@@ -1,0 +1,23 @@
+#coin-listing-application-form .ant-form-item {
+    margin-bottom: 0px;
+}
+
+#coin-listing-application-form .ant-form-extra {
+    padding-top: 0px;
+    vertical-align: middle;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+#coin-listing-application-form .headerDivider {
+	font-size: 16px;
+	font-weight: 500;
+}
+
+#coin-listing-application-form a {
+	width: 300px;
+	display: block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}

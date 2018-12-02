@@ -1,0 +1,11 @@
+#high-leverage-task-form .editorClassName {
+    border: 1px solid #F1F1F1   ;
+    min-height: 250px;
+    max-height: 250px;
+    padding: 10px;
+    line-height: 20px;
+}
+
+#high-leverage-task-form .public-DraftStyleDefault-block {
+    margin: 0.2em 0 !important;
+}

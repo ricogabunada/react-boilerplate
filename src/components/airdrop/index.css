@@ -1,0 +1,12 @@
+td.no-of-phases {
+	text-align: center;
+}
+
+a.coin-comp-anchor {
+	color: #007bff !important;
+	cursor: pointer;
+}
+
+a.coin-comp-anchor:hover {
+	color: #0056b3 !important;
+}

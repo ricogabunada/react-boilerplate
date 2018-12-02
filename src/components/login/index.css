@@ -29,6 +29,15 @@ body {
 	width: 100%;
 }
 
+/**
+ * Reset Password
+ */
+.reset-password .ant-alert-error,
+.reset-password .ant-alert-success
+{
+	margin-bottom: 35px;
+}
+
 
 @media only screen and (min-width: 414px) {
 

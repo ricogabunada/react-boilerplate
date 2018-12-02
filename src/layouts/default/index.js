@@ -3,34 +3,29 @@ import { push } from 'react-router-redux';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
+	Row,
 	Layout,
 	Menu,
 	Icon,
 } from 'antd';
 import session from '../../utils/session';
-//import './index.css';
+import './index.css';
 
-const { Sider, Footer, Content } = Layout;
+const { Header, Sider, Footer, Content } = Layout;
+const SubMenu = Menu.SubMenu;
 
-const siderStyles = {
-	overflow: 'auto',
-	height: '100vh',
-	position: 'fixed',
-	left: 0,
-	backgroundColor: '#1071b8',
-};
 const menuStyles = {
 	backgroundColor: '#1071b8',
+}
+const headerStyles = {
+	background: '#fff',
+	padding: 0,
 }
 const logoStyles = {
 	width: 150,
 }
-const subLayoutStyles = {
-	marginLeft: 200
-}
 const contentStyles = {
 	margin: '24px 16px 0',
-	overflow: 'initial',
 }
 
 // Define layout
@@ -44,9 +39,11 @@ class DefaultLayout extends React.Component {
 	handleClick = e => {
 		let key = e.key;
 
-		if(key === 'logout') {
+		if(key === '/logout') {
 			return this.logout();
 		}
+
+		return this.props.goTo(key);
 	}
 
 	logout = () => {
@@ -56,85 +53,120 @@ class DefaultLayout extends React.Component {
 		props.history.replace({ pathname: '/login' });
 	}
 
-	toggle = () => {
-		this.setState({
-			collapsed: !this.state.collapsed,
-		});
-	}
-
 	render() {
-
 		return (
-			  <Layout>
-				<Sider style={siderStyles}>
-				  <div className="logo">
-					<img src="./assets/logo.png" style={logoStyles} />
-				  </div>
-				  <Menu theme="dark" mode="inline"
-					style={menuStyles}
-					onClick={this.handleClick}
-					defaultSelectedKeys={['1']}>
-					<Menu.Item key="1">
-					  <Icon type="user" />
-					  <span className="nav-text">nav 1</span>
-					</Menu.Item>
-					<Menu.Item key="2">
-					  <Icon type="video-camera" />
-					  <span className="nav-text">nav 2</span>
-					</Menu.Item>
-					<Menu.Item key="3">
-					  <Icon type="upload" />
-					  <span className="nav-text">nav 3</span>
-					</Menu.Item>
-					<Menu.Item key="4">
-					  <Icon type="bar-chart" />
-					  <span className="nav-text">nav 4</span>
-					</Menu.Item>
-					<Menu.Item key="5">
-					  <Icon type="cloud-o" />
-					  <span className="nav-text">nav 5</span>
-					</Menu.Item>
-					<Menu.Item key="6">
-					  <Icon type="appstore-o" />
-					  <span className="nav-text">nav 6</span>
-					</Menu.Item>
-					<Menu.Item key="7">
-					  <Icon type="team" />
-					  <span className="nav-text">nav 7</span>
-					</Menu.Item>
-					<Menu.Item key="8">
-					  <Icon type="shop" />
-					  <span className="nav-text">nav 8</span>
-					</Menu.Item>
-					<Menu.Item key="logout">
-					  <Icon type="logout" />
-					  <span className="nav-text">Logout</span>
-					</Menu.Item>
-				  </Menu>
-				</Sider>
-				<Layout style={subLayoutStyles}>
-				  <Content style={contentStyles}>
-					<div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
-					  ...
-					  <br />
-					  Really
-					  <br />...<br />...<br />...<br />
-					  long
-					  <br />...<br />...<br />...<br />...<br />...<br />...
-					  <br />...<br />...<br />...<br />...<br />...<br />...
-					  <br />...<br />...<br />...<br />...<br />...<br />...
-					  <br />...<br />...<br />...<br />...<br />...<br />...
-					  <br />...<br />...<br />...<br />...<br />...<br />...
-					  <br />...<br />...<br />...<br />...<br />...<br />...
-					  <br />...<br />...<br />...<br />...<br />...<br />
-					  content
+			<Layout>
+				<Sider
+					className="sidebar-bg-color"
+					breakpoint="md"
+					collapsedWidth="0">
+
+					<div className="logo">
+						<img src="/assets/logo.png" style={logoStyles} />
 					</div>
-				  </Content>
-				  <Footer style={{ textAlign: 'center' }}>
-					Copyright © 2018. Cryptaldash Exchange. All Rights Reserved.
-				  </Footer>
+
+					<Menu theme="dark" mode="inline"
+						style={menuStyles}
+						onClick={this.handleClick}>
+						<Menu.Item key="dashboard">
+							<Icon type="dashboard" />
+							<span className="nav-text">Dashboard</span>
+						</Menu.Item>
+
+						<SubMenu
+							key="access-control"
+							title={<span><Icon type="lock" /><span>Access Control</span></span>}>
+							<Menu.Item key="/users">
+								<Icon type="user" />
+								<span className="nav-text">Users</span>
+							</Menu.Item>
+							<Menu.Item key="/roles">
+								<Icon type="usergroup-add" />
+								<span className="nav-text">Roles</span>
+							</Menu.Item>
+							<Menu.Item key="/permissions">
+								<Icon type="solution" />
+								<span className="nav-text">Permissions</span>
+							</Menu.Item>
+							<Menu.Item key="/departments">
+								<Icon type="cluster" theme="outlined" />
+								<span className="nav-text">Departments</span>
+							</Menu.Item>
+						</SubMenu>
+						<Menu.Item key="/coins">
+							<Icon type="dollar" />
+							<span className="nav-text">Coins</span>
+						</Menu.Item>
+						<Menu.Item key="/get-vero-events">
+							<Icon type="thunderbolt" />
+							<span className="nav-text">GetVero Events</span>
+						</Menu.Item>
+						<Menu.Item key="/icos">
+							<Icon type="bars" />
+							<span className="nav-text">ICO List</span>
+						</Menu.Item>
+						<SubMenu
+							key="coin-competition"
+							title={<span><Icon type="gold"/><span>Coin Competition</span></span>}>
+							<Menu.Item key="/coin-competitions">
+								<Icon type="bars" />
+								<span className="nav-text">List</span>
+							</Menu.Item>
+							<SubMenu
+								key="participant"
+								title={<span><Icon type="bars"/><span>Participant</span></span>}>
+								<Menu.Item key="/participant-high-leverage-tasks">
+									<Icon type="bars" />
+									<span className="nav-text">Tasks</span>
+								</Menu.Item>
+							</SubMenu>
+						</SubMenu>
+						<Menu.Item key="/high-leverage-tasks">
+							<Icon type="bars" />
+							<span className="nav-text">High Leverage Tasks</span>
+						</Menu.Item>
+						<Menu.Item key="/airdrops">
+							<Icon type="rocket" theme="outlined" />
+							<span className="nav-text">Airdrop</span>
+						</Menu.Item>
+						<Menu.Item key="/transactions">
+							<Icon type="audit" theme="outlined" />
+							<span className="nav-text">Transactions</span>
+						</Menu.Item>
+						<Menu.Item key="/coin-listing-applications">
+							<Icon type="audit" theme="outlined" />
+							<span className="nav-text">Coin Listing Applications</span>
+						</Menu.Item>
+						<Menu.Item key="/reports">
+							<Icon type="stock" theme="outlined" />
+							<span className="nav-text">Reports</span>
+						</Menu.Item>
+						<Menu.Item key="/logout">
+							<Icon type="logout" />
+							<span className="nav-text">Logout</span>
+						</Menu.Item>
+					  </Menu>
+				</Sider>
+				<Layout>
+					<div className="container-dashboard">
+						<Row style={{margin: 15}}>
+							<div style={{
+									padding: 24,
+									background: '#fff',
+									minHeight: 'calc(100vh - 100px)',
+									height: 'auto',
+								}}>
+								<Content style={contentStyles}>
+									{this.props.children}
+								</Content>
+							</div>
+						</Row>
+					</div>
+					<Footer style={{ textAlign: 'center' }}>
+						Copyright © 2018. Cryptaldash Exchange. All Rights Reserved.
+					</Footer>
 				</Layout>
-			  </Layout>
+			</Layout>
 		);
 	}
 }
@@ -146,7 +178,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		goTo(url) {
-			return () => dispatch(push(url));
+			dispatch(push(url));
 		}
   };
 };
@@ -158,9 +190,9 @@ export default ({ component: Component, ...rest }) => {
 		<Route
 			{...rest}
 			render={matchProps => (
-        <ConnectedLayout>
-          <Component {...matchProps} />
-        </ConnectedLayout>
+				<ConnectedLayout>
+					<Component {...matchProps} />
+				</ConnectedLayout>
 			)}
 		/>
 	);

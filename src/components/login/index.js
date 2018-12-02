@@ -20,18 +20,15 @@ class Login extends React.Component {
 	}
 
 	handleSubmit = e => {
-		//temporary login for demo
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				const {remember, ...data} = values;
-				return console.log(data);
 
 				authenticate(data)
 					.then(res => {
-						console.log('Received values of form: ', res);
 						session.set('userData', res)
-						session.set('token', res.remember_token);
+						session.set('token', res.access_token);
 						this.props.history.replace({ pathname: '/dashboard' });
 					});
 			}

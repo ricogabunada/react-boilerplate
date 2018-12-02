@@ -8,3 +8,19 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.ant-table-thead > tr > th {
+	text-align: center;
+}
+
+/**
+ * Override notification css for multiple error messages.
+ */
+.ant-notification.ant-notification-topRight > span {
+    white-space: pre-line;
+}
+
+th.column-money,
+td.column-money {
+    text-align: right !important;
+}
